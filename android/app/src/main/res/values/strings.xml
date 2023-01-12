@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Test Firebase Auth</string>
+<string name="facebook_app_id">905412547539971</string>
+<string name="fb_login_protocol_scheme">fb905412547539971</string>
+<string name="facebook_client_token">7e61337884812fcca487916630cb648d</string>
+</resources>
