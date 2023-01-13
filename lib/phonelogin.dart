@@ -10,7 +10,7 @@ class LoginWithPhone extends StatefulWidget {
 }
 
 class _LoginWithPhoneState extends State<LoginWithPhone> {
-  TextEditingController phoneController = TextEditingController(text: "+44");
+  TextEditingController phoneController = TextEditingController(text: "+66");
   TextEditingController otpController = TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -61,13 +61,14 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
     );
   }
 
+//0842825230
   void loginWithPhone() async {
     auth.verifyPhoneNumber(
       phoneNumber: phoneController.text,
       verificationCompleted: (PhoneAuthCredential credential) async {
-        await auth.signInWithCredential(credential).then((value) {
-          print("You are logged in successfully");
-        });
+        // await auth.signInWithCredential(credential).then((value) {
+        //   print("You are logged in successfully test");
+        // });
       },
       verificationFailed: (FirebaseAuthException e) {
         print(e.message);
@@ -86,7 +87,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
         verificationId: verificationID, smsCode: otpController.text);
 
     await auth.signInWithCredential(credential).then((value) {
-      print("You are logged in successfully");
+      print("login in successfully verificationCompleted");
       gotoprofile(context, value);
     });
   }

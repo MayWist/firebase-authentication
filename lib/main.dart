@@ -12,7 +12,6 @@ import 'package:test_firebase_autu/profile.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   runApp(const MyApp());
 }
@@ -30,15 +29,6 @@ class MyApp extends StatelessWidget {
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
-  TextEditingController phoneController =
-      TextEditingController(text: "+923028997122");
-  TextEditingController otpController = TextEditingController();
-
-  FirebaseAuth auth = FirebaseAuth.instance;
-
-  bool otpVisibility = false;
-
-  String verificationID = "";
 
   @override
   Widget build(BuildContext context) {
@@ -88,34 +78,6 @@ class Home extends StatelessWidget {
       ),
     );
   }
-
-  // Future phoneLogin(context) async {
-  //   FirebaseAuth auth = FirebaseAuth.instance;
-  //   await FirebaseAuth.instance.verifyPhoneNumber(
-  //     phoneNumber: '+44 ' + phoneController.text,
-  //     verificationCompleted: (PhoneAuthCredential credential) async {
-  //       var user = await auth.signInWithCredential(credential).then((value) {
-  //         print("You are logginphone successfully");
-  //         gotoprofile(context, value);
-  //       });
-  //     },
-  //     verificationFailed: (FirebaseAuthException e) {
-  //       if (e.code == 'invalid-phone-number') {
-  //         print('The provided phone number is not valid.');
-  //       }
-  //     },
-  //     codeSent: (String verificationId, int? resendToken) async {
-  //       String smsCode = smsController.text;
-
-  //       PhoneAuthCredential credential = PhoneAuthProvider.credential(
-  //           verificationId: verificationId, smsCode: smsCode);
-
-  //       await auth.signInWithCredential(credential);
-  //     },
-  //     codeAutoRetrievalTimeout: (String verificationId) {},
-  //   );
-  // }
-
 }
 //wait for api key
 // Future twitterLoging(context) async {
