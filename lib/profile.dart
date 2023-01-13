@@ -41,14 +41,14 @@ class Profile extends StatelessWidget {
     });
     final googleSignIn = GoogleSignIn();
     await googleSignIn.disconnect();
-    await LineSDK.instance.logout().then((value) {
+    try {
+      LineSDK.instance.setup("${1657807795}").then((_) {
+        print("LineSDK Prepared");
+      });
+      await LineSDK.instance.logout();
       print("line logout");
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MyApp(),
-          ),
-          (route) => false);
-    });
+    } on PlatformException catch (e) {
+      print(e.message);
+    }
   }
 }
