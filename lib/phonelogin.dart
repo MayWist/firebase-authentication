@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_firebase_autu/nav.dart';
+import 'package:test_firebase_autu/profile.dart';
 
 class LoginWithPhone extends StatefulWidget {
   const LoginWithPhone({Key? key}) : super(key: key);
@@ -91,4 +91,12 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
       gotoprofile(context, value);
     });
   }
+
+ 
 }
+ gotoprofile(context, user) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Profile(
+              user: user,
+            )));
+  }

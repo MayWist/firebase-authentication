@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart' as fbauth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
-import 'package:test_firebase_autu/nav.dart';
 import 'package:test_firebase_autu/phonelogin.dart';
 import 'package:test_firebase_autu/profile.dart';
 
@@ -85,10 +84,10 @@ class Home extends StatelessWidget {
 
 Future googleLogin(context) async {
   final googleSignIn = GoogleSignIn();
-  GoogleSignInAccount? _user;
+  GoogleSignInAccount? userdata;
   final googleUser = await googleSignIn.signIn();
   if (googleUser == null) return;
-  _user = googleUser;
+  userdata = googleUser;
 
   final googleAuth = await googleUser.authentication;
 
@@ -96,7 +95,7 @@ Future googleLogin(context) async {
       accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
   await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
-    gotoprofile(context, _user);
+    gotoprofile(context, userdata);
   });
 }
 
@@ -138,8 +137,8 @@ Future lineLogin(context) async {
     final result = await LineSDK.instance
         .login(scopes: ["profile", "openid", "email"]).then((value) async {
       final user = await LineSDK.instance.getProfile();
-      var data = user.displayName + "/" + user.userId;
-      gotoprofile(context, data);
+      var userdata = user.displayName + "/" + user.userId;
+      gotoprofile(context, userdata);
     });
   } on PlatformException catch (e) {
     print(e);
@@ -154,8 +153,14 @@ Future emailandpasswordLogin(context) async {
           email: "testuser@gmail.com", password: "123456")
       .then((value) {
     print("login succeed");
-    var user = FirebaseAuth.instance.currentUser!;
-    print("email: ${user.email}");
-    gotoprofile(context, user);
+    var userdata = FirebaseAuth.instance.currentUser!;
+    gotoprofile(context, userdata);
   });
+}
+
+gotoprofile(context, user) {
+  Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Profile(
+            user: user,
+          )));
 }
