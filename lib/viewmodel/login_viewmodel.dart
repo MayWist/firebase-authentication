@@ -2,24 +2,45 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart' as fbauth;
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart' as fbauth;
 
-class Authentication extends ChangeNotifier {
-  bool otpVisibility = false;
-  String verificationID = "";
+class LoginViewModel extends ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
-  String logintype = "";
-  var userdata = null;
   final googleSignIn = GoogleSignIn(
     scopes: [
       'email',
       'https://www.googleapis.com/auth/contacts.readonly',
     ],
   );
+  bool _otpVisibility = false;
+  String _verificationID = "";
+  String _logintype = "";
+  var _userdata = null;
+
+  bool get otpVisibility => _otpVisibility;
+  String get verificationID => _verificationID;
+  String get logintype => _logintype;
+  get userdata => _userdata.toString();
+
+  set otpVisibility(bool otpVisibility) {
+    _otpVisibility = otpVisibility;
+  }
+
+  set verificationID(String verificationID) {
+    _verificationID = verificationID;
+  }
+
+  set logintype(String logintype) {
+    _logintype = logintype;
+  }
+
+  set userdata(userdata) {
+    _userdata = userdata;
+  }
+
   Future googleLogin(context) async {
-    //แก้
     GoogleSignInAccount? userdata;
     final googleUser = await googleSignIn.signIn();
     if (googleUser == null) return;
@@ -152,10 +173,10 @@ class Authentication extends ChangeNotifier {
         await FirebaseAuth.instance.signOut();
     }
     notifyListeners();
-    Navigator.pushNamed(context, "/Login");
+    Navigator.pushNamedAndRemoveUntil(context, "/Profile", (route) => false);
   }
 
   void NavToProfile(context) {
-    Navigator.pushNamed(context, "/Profile");
+    Navigator.pushNamedAndRemoveUntil(context, "/Profile", (route) => false);
   }
 }

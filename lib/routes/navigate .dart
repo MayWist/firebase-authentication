@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_firebase_autu/page/Login.dart';
-import 'package:test_firebase_autu/page/phonelogin.dart';
-import 'package:test_firebase_autu/page/profile.dart';
+import 'package:test_firebase_autu/view/login/login.dart';
+import 'package:test_firebase_autu/view/login/phonelogin.dart';
+import 'package:test_firebase_autu/view/profile.dart';
 
 class Navigate {
   static Map<String, Widget Function(BuildContext)> routes = {

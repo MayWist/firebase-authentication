@@ -1,9 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_firebase_autu/page/profile.dart';
-
-import '../provider/Authentication.dart';
+import 'package:test_firebase_autu/viewmodel/login_viewmodel.dart';
 
 class LoginWithPhone extends StatefulWidget {
   const LoginWithPhone({Key? key}) : super(key: key);
@@ -17,7 +14,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
   TextEditingController otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var otpvisible = context.watch<Authentication>().otpVisibility;
+    var loginViewModel = context.watch<LoginViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: Text("Login With Phone"),
@@ -38,24 +35,24 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
                 decoration: InputDecoration(labelText: "OTP"),
                 keyboardType: TextInputType.number,
               ),
-              visible: context.watch<Authentication>().otpVisibility,
+              visible: loginViewModel.otpVisibility,
             ),
             SizedBox(
               height: 10,
             ),
             ElevatedButton(
                 onPressed: () {
-                  if (otpvisible) {
+                  if (loginViewModel.otpVisibility) {
                     context
-                        .read<Authentication>()
+                        .read<LoginViewModel>()
                         .verifyOTP(context, otpController.text);
                   } else {
                     context
-                        .read<Authentication>()
+                        .read<LoginViewModel>()
                         .loginWithPhone(phoneController.text);
                   }
                 },
-                child: Text(otpvisible ? "Verify" : "Login")),
+                child: Text(loginViewModel.otpVisibility ? "Verify" : "Login")),
           ],
         ),
       ),
